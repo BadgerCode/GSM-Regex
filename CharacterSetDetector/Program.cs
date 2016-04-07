@@ -22,14 +22,14 @@ namespace CharacterSetDetector
     {
         static void Main(string[] args)
         {
-            var characterSetDetector = new CharacterSetDetector();
-            var regexCharacterSetDetector = new RegexCharacterSetDetector();
-            var compiledRegexCharacterSetDetector = new RegexCharacterSetDetectorUsingCompiledOption();
-
             var testSizes = new[] {1, 5, 10, 50, 100, 500, 1000, 10000, 30000, 50000, 500000};
 
             foreach (var testSize in testSizes)
             {
+                var characterSetDetector = new CharacterSetDetector();
+                var regexCharacterSetDetector = new RegexCharacterSetDetector();
+                var compiledRegexCharacterSetDetector = new RegexCharacterSetDetectorUsingCompiledOption();
+
                 var testData = new string[testSize];
                 for (var i = 0; i < testSize; i++)
                 {
