@@ -57,6 +57,7 @@
     <Compile Include="RandomStrings.cs" />
     <Compile Include="RegexCharacterSetDetector.cs" />
     <Compile Include="RegexCharacterSetDetectorTests.cs" />
+    <Compile Include="RegexCompilationTests.cs" />
     <Compile Include="ResultCharacterSet.cs" />
   </ItemGroup>
   <ItemGroup>
