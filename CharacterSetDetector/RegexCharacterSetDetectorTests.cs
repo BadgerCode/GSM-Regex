@@ -100,7 +100,7 @@ namespace CharacterSetDetector
         }
 
         [TestFixture]
-        public class Given50000GSMStringsOfLength918
+        public class Given50000RandomGSMStringsOfLength918
         {
             private ResultCharacterSet[] _results;
             private TimeSpan _elapsedTime;
@@ -109,16 +109,12 @@ namespace CharacterSetDetector
             public void WhenDetectingTheCharacterSet()
             {
                 var testSize = 50000;
-                var longString = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
-                               + "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
-                               + "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
-                               + "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
-                               + "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
-                               + "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
-                               + "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
-                               + "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
-                               + "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
-                               + "123456789012345678";
+                var testStrings = new string[testSize];
+
+                for (var i = 0; i < testSize; i++)
+                {
+                    testStrings[i] = RandomStrings.GSMString(918);
+                }
 
                 _results = new ResultCharacterSet[testSize];
 
@@ -128,7 +124,7 @@ namespace CharacterSetDetector
                 var stopWatch = Stopwatch.StartNew();
                 for (var i = 0; i < testSize; i++)
                 {
-                    _results[i] = detector.Detect(longString);
+                    _results[i] = detector.Detect(testStrings[i]);
                 }
                 stopWatch.Stop();
 
@@ -140,6 +136,52 @@ namespace CharacterSetDetector
             {
                 var allResultsGSM = _results.All(result => result == ResultCharacterSet.GSM);
                 Assert.That(allResultsGSM, Is.True);
+            }
+
+            [Test]
+            public void ThenTheResultsAreReturnedInAnAcceptableAmountOfTime()
+            {
+                Assert.That(_elapsedTime, Is.LessThanOrEqualTo(TimeSpan.FromSeconds(2)));
+            }
+        }
+
+        [TestFixture]
+        public class Given50000RandomUnicodeStringsOfLength918
+        {
+            private ResultCharacterSet[] _results;
+            private TimeSpan _elapsedTime;
+
+            [TestFixtureSetUp]
+            public void WhenDetectingTheCharacterSet()
+            {
+                var testSize = 50000;
+                var testStrings = new string[testSize];
+
+                for (var i = 0; i < testSize; i++)
+                {
+                    testStrings[i] = RandomStrings.UnicodeString(918);
+                }
+
+                _results = new ResultCharacterSet[testSize];
+
+
+                var detector = new RegexCharacterSetDetector();
+
+                var stopWatch = Stopwatch.StartNew();
+                for (var i = 0; i < testSize; i++)
+                {
+                    _results[i] = detector.Detect(testStrings[i]);
+                }
+                stopWatch.Stop();
+
+                _elapsedTime = stopWatch.Elapsed;
+            }
+
+            [Test]
+            public void ThenUnicodeIsReturned()
+            {
+                var allResultsUnicode = _results.All(result => result == ResultCharacterSet.Unicode);
+                Assert.That(allResultsUnicode, Is.True);
             }
 
             [Test]
