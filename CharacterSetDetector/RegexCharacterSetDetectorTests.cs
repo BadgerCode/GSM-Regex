@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 
 namespace CharacterSetDetector
@@ -77,6 +79,39 @@ namespace CharacterSetDetector
             public void ThenUnicodeIsReturned()
             {
                 Assert.That(_result, Is.EqualTo(ResultCharacterSet.GSM));
+            }
+        }
+
+        [TestFixture]
+        public class GivenAnyNonGSMUnicodeCharacter
+        {
+            private List<ResultCharacterSet> _results;
+            private Regex _expression;
+            private RegexCharacterSetDetector _detector;
+
+            [TestFixtureSetUp]
+            public void WhenDetectingTheCharacterSet()
+            {
+                var pattern = @"^[@£$¥èéùìòÇØøÅåΔ_ΦΓΛΩΠΨΣΘΞ\^{}\\[~\]|€ÆæßÉ!""#¤%&'()*+,\-.\/0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà\u000c\u0020\u000d\u000a]*$";
+                _expression = new Regex(pattern, RegexOptions.Compiled);
+
+                _detector = new RegexCharacterSetDetector();
+            }
+
+            [Test]
+            public void ThenUnicodeIsReturned()
+            {
+                for (var i = char.MinValue; i < char.MaxValue; i++)
+                {
+                    var character = $"{i}";
+
+                    if (!_expression.IsMatch(character))
+                    {
+                        Console.WriteLine(character);
+
+                        Assert.That(_detector.Detect(character), Is.EqualTo(ResultCharacterSet.Unicode));
+                    }
+                }
             }
         }
 
@@ -227,6 +262,58 @@ namespace CharacterSetDetector
             public void ThenUnicodeIsReturned(string body)
             {
                 Assert.That(new RegexCharacterSetDetector().Detect(body), Is.EqualTo(ResultCharacterSet.Unicode));
+            }
+        }
+
+        [TestFixture]
+        public class Given7DifferentGSMMessages918CharactersLongRepeated50000Times
+        {
+            public static string OpeningMessage = "Opening message 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 charact";
+            public static string Question1 = "Question 1 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 cha";
+            public static string Question2 = "Question 2 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 cha";
+            public static string Question3 = "Question 3 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 cha";
+            public static string Question4 = "Question 4 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 cha";
+            public static string Question5 = "Question 5 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 cha";
+            public static string ClosingMessage = "Closing message 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 charact";
+            private ResultCharacterSet[] _results;
+            private TimeSpan _elapsedTime;
+
+            [TestFixtureSetUp]
+            public void WhenDetectingTheCharacterSet()
+            {
+                var testSize = 50000;
+                _results = new ResultCharacterSet[testSize * 7];
+
+
+                var detector = new RegexCharacterSetDetector();
+
+                var stopWatch = Stopwatch.StartNew();
+                for (var i = 0; i < testSize; i++)
+                {
+                    _results[i] = detector.Detect(OpeningMessage);
+                    _results[i+1] = detector.Detect(Question1);
+                    _results[i+2] = detector.Detect(Question2);
+                    _results[i+3] = detector.Detect(Question3);
+                    _results[i+4] = detector.Detect(Question4);
+                    _results[i+5] = detector.Detect(Question5);
+                    _results[i+6] = detector.Detect(ClosingMessage);
+                }
+                stopWatch.Stop();
+
+                _elapsedTime = stopWatch.Elapsed;
+            }
+
+            [Test]
+            public void ThenGSMIsReturned()
+            {
+                var allResultsGSM = _results.All(result => result == ResultCharacterSet.GSM);
+                Assert.That(allResultsGSM, Is.True);
+            }
+
+            [Test]
+            public void ThenTheResultsAreReturnedInAnAcceptableAmountOfTime()
+            {
+                Assert.That(_elapsedTime, Is.LessThanOrEqualTo(TimeSpan.FromSeconds(2)));
             }
         }
     }

@@ -20,10 +20,19 @@ namespace CharacterSetDetector
     */
     class Program
     {
+        public static string OpeningMessage = "Opening message 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 charact";
+        public static string Question1 = "Question 1 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 cha";
+        public static string Question2 = "Question 2 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 cha";
+        public static string Question3 = "Question 3 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 cha";
+        public static string Question4 = "Question 4 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 cha";
+        public static string Question5 = "Question 5 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 cha";
+        public static string ClosingMessage = "Closing message 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 characters 918 charact";
+
         static void Main(string[] args)
         {
-            var testSizes = new[] {1, 5, 10, 50, 100, 500, 1000, 10000, 30000, 50000, 500000};
+            SurveysTest();
 
+            var testSizes = new[] {1, 5, 10, 50, 100, 500, 1000, 10000, 30000, 50000, 500000};
             foreach (var testSize in testSizes)
             {
                 var characterSetDetector = new CharacterSetDetector();
@@ -42,6 +51,34 @@ namespace CharacterSetDetector
                 TestSetDetector(compiledRegexCharacterSetDetector, "Compiled Regex", testData);
             }
             Console.Read();
+        }
+
+        public static void SurveysTest()
+        {
+            var characterSetDetector = new CharacterSetDetector();
+            var compiledRegexCharacterSetDetector = new RegexCharacterSetDetectorUsingCompiledOption();
+
+            TestCharacterSetOnSurveyTest(characterSetDetector, "Normal");
+            TestCharacterSetOnSurveyTest(compiledRegexCharacterSetDetector, "Regex Compiled");
+        }
+
+        public static void TestCharacterSetOnSurveyTest(ICharacterSetDetector setDetector, string name)
+        {
+            var testSize = 50000;
+            var characterSetDetectorStopWatch = Stopwatch.StartNew();
+            for (var i = 0; i < testSize; i++)
+            {
+                setDetector.Detect(OpeningMessage);
+                setDetector.Detect(Question1);
+                setDetector.Detect(Question2);
+                setDetector.Detect(Question3);
+                setDetector.Detect(Question4);
+                setDetector.Detect(Question5);
+                setDetector.Detect(ClosingMessage);
+            }
+            characterSetDetectorStopWatch.Stop();
+
+            Console.WriteLine($"Survey test. {name} took: {characterSetDetectorStopWatch.ElapsedMilliseconds}ms");
         }
 
         public static void TestSetDetector(ICharacterSetDetector setDetector, string name, string[] testData)
